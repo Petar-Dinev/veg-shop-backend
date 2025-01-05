@@ -1,6 +1,7 @@
 const express = require('express');
 const expressConfig = require('./configs/expressConfig');
 const dbConfig = require('./configs/dbConfig');
+const routesConfig = require('./configs/routes');
 
 const PORT = 3000;
 
@@ -10,8 +11,9 @@ async function start() {
 
     const app = express();
 
-    expressConfig(app)
     await dbConfig(app)
+    expressConfig(app)
+    routesConfig(app)
 
     app.get('/data', (req, res) => {
         res.json(['Petar', 'Anita', 'Bojidar'])
