@@ -1,14 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const expressConfig = require('./configs/expressConfig');
 const dbConfig = require('./configs/dbConfig');
 const routesConfig = require('./configs/routes');
 
-const PORT = 3000;
 
 start()
 
 async function start() {
-
+    const PORT = process.env.PORT || 5000;
     const app = express();
 
     await dbConfig(app)
