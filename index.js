@@ -15,10 +15,6 @@ async function start() {
     expressConfig(app)
     routesConfig(app)
 
-    app.get('/data', (req, res) => {
-        res.json(['Petar', 'Anita', 'Bojidar'])
-    })
-
     app.listen(PORT, () => console.log(`Server listen at port ${PORT}...`)
     )
 }

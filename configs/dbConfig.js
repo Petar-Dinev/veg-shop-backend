@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const connectionString = 'mongodb://127.0.0.1:27017/vegShop'
+const connectionString = process.env.MONGODB_CONNECTION || 'mongodb://127.0.0.1:27017/vegShop';
 
 module.exports = async (app) => {
     try {
