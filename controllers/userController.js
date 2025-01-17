@@ -1,4 +1,5 @@
-const { register, login } = require('../services/userService');
+const { errorParser } = require('../middlewares/parser');
+const { register, login, logout } = require('../services/userService');
 
 const userController = require('express').Router();
 
@@ -20,8 +21,7 @@ userController.post('/register', async (req, res) => {
         res.status(201).json(newUser)
 
     } catch (err) {
-        console.log(err);
-        res.status(400).json({ message: err.message })
+        res.status(400).json({ message: errorParser(err) })
     }
 })
 
@@ -38,13 +38,15 @@ userController.post('/login', async (req, res) => {
         res.json(result)
 
     } catch (err) {
-        res.status(400).json({ message: err.message })
+        res.status(400).json({ message: errorParser(err) })
     }
 })
 
 userController.get('/logout', (req, res) => {
     console.log('Logout successfull', req.body);
-    res.status(204).end()
+    logout()
+    res.json({ message: 'Logout successfull' })
+
 })
 
 module.exports = userController;
