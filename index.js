@@ -11,10 +11,9 @@ async function start() {
     const PORT = process.env.PORT || 5000;
     const app = express();
 
-    await dbConfig(app)
-    expressConfig(app)
-    routesConfig(app)
+    await dbConfig(app);
+    expressConfig(app);
+    routesConfig(app);
 
-    app.listen(PORT, () => console.log(`Server listen at port ${PORT}...`)
-    )
+    app.listen(PORT, () => console.log(`Server listen at port ${PORT}...`));
 }

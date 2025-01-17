@@ -51,16 +51,17 @@ async function createToken({ _id, email, username }) {
     return {
         _id,
         email,
+        username,
         accessToken: token
     }
 }
 
-function decodeToken(token) {
+function verifyToken(token) {
     if (blackList.has(token)) {
         throw new Error('Token is blacklisted!')
     }
 
-    return jwt.decode(token)
+    return jwt.verify(token)
 };
 
 
@@ -68,5 +69,5 @@ module.exports = {
     login,
     register,
     logout,
-    decodeToken
+    verifyToken
 };
