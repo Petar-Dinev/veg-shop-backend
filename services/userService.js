@@ -19,7 +19,14 @@ async function login(email, password) {
         throw new Error('Invalid email or password')
     }
 
-    return createToken(user)
+    const token = createToken(user);
+
+    return {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        accessToken: token
+    };
 };
 
 async function register(email, username, password) {
@@ -29,39 +36,38 @@ async function register(email, username, password) {
         throw new Error('Email is already taken')
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const user = await User.create({ email, username, password: hashedPassword })
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ email, username, password: hashedPassword });
+    const token = createToken(user);
 
-    return createToken(user)
-};
+    return {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        accessToken: token
+    };
+}
 
 function logout(token) {
     blackList.add(token)
 }
 
-async function createToken({ _id, email, username }) {
+function createToken({ _id, email, username }) {
     const payload = {
         _id,
         email,
         username
     }
 
-    const token = jwt.sign(payload, JWT_SECRET);
-
-    return {
-        _id,
-        email,
-        username,
-        accessToken: token
-    }
+    return jwt.sign(payload, JWT_SECRET);
 }
 
 function verifyToken(token) {
     if (blackList.has(token)) {
-        throw new Error('Token is blacklisted!')
+        throw new Error('Token is blacklisted!');
     }
 
-    return jwt.verify(token, JWT_SECRET)
+    return jwt.verify(token, JWT_SECRET);
 };
 
 
