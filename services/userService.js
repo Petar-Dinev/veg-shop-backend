@@ -61,7 +61,7 @@ function verifyToken(token) {
         throw new Error('Token is blacklisted!')
     }
 
-    return jwt.verify(token)
+    return jwt.verify(token, JWT_SECRET)
 };
 
 
