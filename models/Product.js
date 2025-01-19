@@ -10,10 +10,6 @@ const productSchema = new Schema({
         enum: ['vegetable', 'fruit'],
         required: true
     },
-    price: {
-        type: Number,
-        min: [0.01, 'Price must be positive number']
-    },
     imageUrl: {
         type: String,
         validate: {
@@ -21,14 +17,19 @@ const productSchema = new Schema({
             message: 'Image url must be valid url address'
         }
     },
-    quantity: {
-        type: Number,
-        min: [1, 'Product quantity must be positive number']
-    },
     location: {
         type: String,
         minLength: [3, 'Location must be at least 3 characters long']
+    },
+    price: {
+        type: Number,
+        min: [0.01, 'Price must be positive number']
+    },
+    quantity: {
+        type: Number,
+        min: [1, 'Product quantity must be positive number']
     }
+    
 });
 
 productSchema.index({ name: 1 }, { collation: { locale: 'en', strength: 2 } });
