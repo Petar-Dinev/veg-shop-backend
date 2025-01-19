@@ -1,7 +1,8 @@
+const userController = require('express').Router();
+
 const { errorParser } = require('../utils/parser');
 const { register, login, logout } = require('../services/userService');
 
-const userController = require('express').Router();
 
 
 userController.post('/register', async (req, res) => {
